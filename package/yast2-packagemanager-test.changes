@@ -1,0 +1,47 @@
+-------------------------------------------------------------------
+Tue Aug 10 13:20:16 CEST 2004 - cschum@suse.de
+
+- Use more uncommon port for ftp test server.
+- Use apache2 instead of apache.
+
+-------------------------------------------------------------------
+Tue Apr 13 10:37:59 CEST 2004 - cschum@suse.de
+
+- Remove ftpdir from neededforbuild.
+
+-------------------------------------------------------------------
+Tue Mar  9 17:15:28 CET 2004 - cschum@suse.de
+
+- Fix tests trying to update non-installed packages on non-i386
+  architectures. 
+
+-------------------------------------------------------------------
+Fri Mar  5 11:17:58 CET 2004 - cschum@suse.de
+
+- Added tests for UpdateOnlyNew flag.
+- Added tests using media map.
+
+-------------------------------------------------------------------
+Tue Mar  2 15:34:39 CET 2004 - cschum@suse.de
+
+- Added tests for UpdateOnlyInstalled flag.
+
+-------------------------------------------------------------------
+Tue Mar  2 10:45:36 CET 2004 - cschum@suse.de
+
+- Added mysql and postgres dependencies needed by pure-ftpd.
+
+-------------------------------------------------------------------
+Mon Mar  1 00:55:21 CET 2004 - ro@suse.de
+
+- added openslp to neededforbuild
+
+-------------------------------------------------------------------
+Mon Feb  2 16:44:09 CET 2004 - cschum@suse.de
+
+- Add support for running architecture-specific tests.
+
+-------------------------------------------------------------------
+Fri Jan 23 15:31:57 CET 2004 - cschum@suse.de
+
+- Initial version

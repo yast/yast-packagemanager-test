@@ -1,0 +1,29 @@
+#!/usr/bin/perl
+
+$rpmname = `cat RPMNAME`;
+$version = `cat VERSION`;
+
+$rpmname =~ s/\n//;
+$version =~ s/\n//;
+
+$specin = $rpmname . ".spec.in";
+$specout = "package/" . $rpmname . ".spec";
+
+if ( !open IN, "$specin" ) {
+  print STDERR "Unable to open '$specin' for reading.\n";
+  exit 1;
+}
+
+if ( !open OUT, ">$specout" ) {
+  print STDERR "Unable to open '$specout' for writing.\n";
+  exit 1;
+}
+
+while( <IN> )
+{
+  s/\@VERSION\@/$version/;
+  print OUT $_;
+}
+
+close OUT;
+close IN;

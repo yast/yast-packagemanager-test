@@ -1,0 +1,7 @@
+<Location />
+  AuthType Basic
+  AuthName "Auth required"
+  AuthUserFile /usr/src/packages/BUILD/yast2-packagemanager-test/apache/htpasswd
+  Satisfy All
+  Require valid-user
+</Location>

@@ -1,0 +1,4 @@
+perl -pi -e 's/^Listen .*$/Listen 8889/;' /etc/apache2/listen.conf
+perl -pi -e 's#^DocumentRoot .*$#DocumentRoot /usr/src/packages/BUILD/yast2-packagemanager-test/test-patches/#;' /etc/apache2/default-server.conf
+cat apache/http.conf.allow >>/etc/apache2/default-server.conf
+apache2ctl start

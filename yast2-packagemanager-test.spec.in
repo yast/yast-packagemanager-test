@@ -1,0 +1,66 @@
+#
+# spec file for package yast2-packagemanager-test (Version 2.9.0)
+#
+# Copyright (c) 2004 SuSE Linux AG, Nuernberg, Germany.
+# This file and all modifications and additions to the pristine
+# package are under the same license as the package itself.
+#
+# Please submit bugfixes or comments via http://www.suse.de/feedback/
+#
+
+# neededforbuild  acl apache2 apache2-prefork libapr0 attr cron curl expat gpp heimdal-lib libgpp liby2util lukemftp mm mysql-shared openslp openssl popt postgresql-libs pure-ftpd readline rpm yast2-packagemanager gdb
+# usedforbuild    aaa_base acl attr bash bind-utils bison bzip2 coreutils cpio cpp cracklib cvs cyrus-sasl db devs diffutils e2fsprogs file filesystem fillup findutils flex gawk gdbm-devel glibc glibc-devel glibc-locale gpm grep groff gzip info insserv kbd less libacl libattr libgcc libstdc++ libxcrypt m4 make man mktemp module-init-tools ncurses ncurses-devel net-tools netcfg openldap2-client openssl pam pam-modules patch permissions popt ps pwdutils rcs readline sed sendmail strace syslogd sysvinit tar texinfo timezone unzip util-linux vim zlib zlib-devel apache autoconf automake binutils cron curl expat gcc gcc-c++ gdbm gettext libstdc++-devel libtool liby2util lukemftp mm perl popt-devel pure-ftpd rpm yast2-packagemanager
+
+Name:         yast2-packagemanager-test
+Version:      @VERSION@
+Release:      0
+License:      YaST License
+Group:        System/YaST
+BuildRoot:    %{_tmppath}/%{name}-%{version}-build
+Source0:      yast2-packagemanager-test-%{version}.tar.bz2
+prefix:		/usr
+Summary:      yast2-packagemanager tests
+
+%description
+This package contains tests for the yast2-packagemanager package. They
+are intended to be run in the autobuild environment.
+
+
+
+Authors:
+--------
+    Cornelius Schumacher <cschum@suse.de>
+
+SuSE series: suse
+
+%prep
+%setup -n %{name}
+mkdir -p /var/adm/YaST
+cp -r ProdDB /var/adm/YaST
+#mv proc/* /proc
+cp -r test-patches/i386 /srv/ftp
+mkdir -p ~/.yast2
+cp log.conf ~/.yast2
+touch /etc/apache2/sysconfig.d/include.conf
+
+%build
+
+export Y2DEBUG=1
+export Y2SLOG_FILE=/tmp/y2log
+
+./testit --arch=%{_arch} --loglines 500
+
+%install
+mkdir -p $RPM_BUILD_ROOT/var/lib/YaST2/tests
+touch $RPM_BUILD_ROOT/var/lib/YaST2/tests/yast2-packagemanager.success
+
+%clean
+[ "$RPM_BUILD_ROOT" -a "$RPM_BUILD_ROOT" != "/" ] && rm -rf "$RPM_BUILD_ROOT"
+
+%files
+%defattr(-,root,root)
+/var/lib/YaST2/tests/
+
+%changelog -n yast2-packagemanager-test
+* Fri Jan 23 2004 - cschum@suse.de
+- Initial version

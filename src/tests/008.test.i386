@@ -1,0 +1,22 @@
+# HTTP server authentification
+
+#setup
+
+rpm -i test-patches/i386/update/9.1/rpm/i586/mydummy-1.0-0.i586.rpm
+
+cat apache/http.conf.auth >>/etc/apache2/httpd.conf
+
+. tests/setup_apache
+
+
+#test
+
+online_update -n -u http://youuser:123abc@localhost:8889/
+
+[ `rpm -q mydummy` = "mydummy-1.0-1" ]
+[ `rpm -q mydummy2` = "mydummy2-1.0-0" ]
+
+
+#cleanup
+
+. tests/cleanup_apache

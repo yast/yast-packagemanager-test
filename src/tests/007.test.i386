@@ -1,0 +1,22 @@
+# HTTP server authentification expected fail
+
+#setup
+
+rpm -i test-patches/i386/update/9.1/rpm/i586/mydummy-1.0-0.i586.rpm
+
+cat apache/http.conf.auth >>/etc/apache2/default-server.conf
+
+. tests/setup_apache
+
+
+#test
+
+! online_update -n -u http://localhost:8889/
+
+[ `rpm -q mydummy` = "mydummy-1.0-0" ]
+! rpm -q mydummy2
+
+
+#cleanup
+
+. tests/cleanup_apache

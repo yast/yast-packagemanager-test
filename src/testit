@@ -1,0 +1,172 @@
+#!/usr/bin/perl
+
+use Getopt::Long;
+
+$result = GetOptions (
+  'arch=s' => \$arch,
+  'help' => \$help,
+  'dryrun' => \$dryrun,
+  'onlysection=s' => \$onlysection,
+  'nosetup' => \$nosetup,
+  'nocleanup' => \$nocleanup,
+  'loglines=s' => \$loglines
+);
+
+if ( $help ) { &usage(); }
+
+if ( @ARGV > 1 ) { &usage(); }
+
+my $selectedTest = $ARGV[ 0 ];
+
+my $logFile = $ENV{ "Y2SLOG_FILE" };
+
+if ( !$loglines ) { $loglines = 20; }
+
+if ( !opendir( DIR, "tests" ) ) {
+  print STDERR "Unable to open directory 'tests'.\n";
+  exit 1;
+} else {
+  my $failcount = 0;
+
+  my @entries = readdir( DIR );
+  foreach my $entry ( sort @entries ) {
+    if ( $entry !~ /(.*)\.test\.?([^\.]*)$/ ) { next; }
+    my $number = $1;
+    my $testarch = $2;
+    if ( $testarch && $testarch ne $arch ) { next; }
+    if ( $selectedTest && $selectedTest ne $number ) { next; }
+
+    if ( !open( TEST, "tests/$entry" ) ) {
+      print STDERR "Unable to open test file '$entry'.\n";
+      exit 1;
+    } else {
+      my $title = <TEST>;
+      chop $title;
+
+      print "...starting test $number";
+      if ( $testarch ) { print " ($testarch)"; }
+      if ( $title =~ /^# (.*)/ ) { print ": $1"; }
+      print "\n"; 
+
+      my $linenumber = 1;
+      my %sections;
+      my $section = "default";
+      my @sectionlist;
+      while( <TEST> ) {
+        if ( /^#(\S+)/ ) {
+          $section = $1;
+          push @sectionlist, $section;
+          my $spacing;
+          my $i = 0;
+          while( $i <= $linenumber ) {
+            $spacing .= "\n";
+            $i++;
+          }
+          $sections{ $section } = $spacing;
+        } else {
+          my $sectioncontent = $sections{ $section };
+          $sectioncontent .= $_;
+          $sections{ $section } = $sectioncontent;
+        }
+        $linenumber++;
+      }
+      close TEST;
+
+      if ( !$nosetup ) { callScript( "tests/setup" ); }
+
+      my $testExitCode;
+
+      foreach my $section ( @sectionlist ) {
+        if ( $section eq "default" ) { next; }
+#        print "SECTION: $section\n";
+#        print $sections{ $section };
+        
+        if ( $onlysection && $onlysection ne $section ) { next; }
+
+        if ( $dryrun ) {
+          print "DRYRUN: execute section '$section'\n";
+          next;
+        }
+        
+        if ( !open( SCRIPT, "|bash -e" ) ) {
+          print STDERR "Unable to execute section '$section'.\n";
+          exit 1;
+        } else {
+          print SCRIPT $sections{ $section };
+          close SCRIPT;
+          my $exitCode = $?;
+
+          if ( $section eq "setup" || $section eq "cleanup" ) {
+            if ( $exitCode != 0 ) {
+              print STDERR "Error Test $number.$testarch: section '$section' failed.\n";
+              exit 1;
+            }
+          } else {
+            $testExitCode = $exitCode;
+            if ( $exitCode != 0 ) {
+              system "tail -n $loglines $logFile";
+            }
+          }
+        }
+      }
+
+      if ( !$nocleanup ) { callScript( "tests/cleanup" ); }
+
+      print "TEST $number";
+      if ( $testarch ) { print " ($testarch)"; }
+      print ": ";
+      if ( $onlysection ) {
+        print "Executed section $onlysection";
+      } else {
+        if ( $testExitCode != 0 ) {
+          print "FAILED ($testExitCode)";
+          $failedCount += 1;
+        } else {
+          print "OK";
+        }
+      }
+      print "\n";          
+    }
+  }
+  closedir DIR;
+
+  print "\n";
+  if ( $failedCount == 0 ) {
+    print "All tests passed\n";
+    exit 0;
+  } else {
+    print "$failedCount tests failed.\n";
+    exit 1;
+  }
+}
+
+# Print out help message
+sub usage()
+{
+    print <<EOF;
+Usage: testit  --arch=<archname> --onlysection=<section> [--dryrun] [testnumber]
+EOF
+    exit(1);
+}
+
+sub callScript($)
+{
+  my $file = shift;
+  
+  if ( !-e $file ) { return 0; }
+
+  my $cmd = "bash $file";
+
+  if ( $dryrun ) {
+    print "DRYRUN: executing '$cmd'\n";
+    return 0;
+  }
+
+#  print "CMD: $cmd\n";
+  if ( system( $cmd ) != 0 ) {
+    print "Error. Failed to execute '$file'.\n";
+    exit 1;
+  }
+
+  return 0;
+}

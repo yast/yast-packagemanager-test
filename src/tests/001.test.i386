@@ -1,0 +1,16 @@
+# Local directory
+
+#setup
+
+rpm -i test-patches/i386/update/9.1/rpm/i586/mydummy-1.0-0.i586.rpm
+
+
+#test
+
+online_update -n -u dir:///usr/src/packages/BUILD/yast2-packagemanager-test/test-patches/
+
+[ `rpm -q mydummy` = "mydummy-1.0-1" ]
+[ `rpm -q mydummy2` = "mydummy2-1.0-0" ]
+
+#cleanup
+
