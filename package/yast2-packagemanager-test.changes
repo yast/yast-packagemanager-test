@@ -1,5 +1,12 @@
 -------------------------------------------------------------------
-Tue Feb  8 08:38:15 CET 2005 - mir
+Wed Feb  9 11:33:32 CET 2005 - mir@suse.de
+
+- using the usual YaST Makefile
+- fixed last logentry
+- 2.12.2
+
+-------------------------------------------------------------------
+Tue Feb  8 08:38:15 CET 2005 - mir@suse.de
 
 - Added w3m to needed for build
 - 2.12.1
