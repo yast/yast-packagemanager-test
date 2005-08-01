@@ -1,0 +1,18 @@
+# UpdateOnlyInstalled = false
+
+#setup
+
+rpm -i test-patches/i386/update/9.1/rpm/noarch/mytest1-1.0-0.noarch.rpm
+echo updateonlyinstalled_false \
+    >test-patches/i386/update/9.1/patches/directory.3
+
+#test
+
+online_update -n -u dir:///usr/src/packages/BUILD/yast2-packagemanager-test/src/test-patches/
+
+[ "`rpm -q mytest1`" = "mytest1-2.0-0" ]
+[ "`rpm -q mytest2`" = "mytest2-2.0-0" ]
+[ "`rpm -q mytest3`" = "mytest3-2.0-0" ]
+
+#cleanup
+

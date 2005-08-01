@@ -1,0 +1,30 @@
+#
+# YOU patch description
+#
+# Patch created by create_you_patch at Thu Oct 16 09:46:02 CEST 2003
+#
+
+Kind: recommended
+
+Shortdescription.english: Argl 2
+
+Longdescription.english:
+Dummy patch.
+Hsilgne.noitpircsedgnol:
+
+UpdateOnlyInstalled: false
+
+Packages:
+
+#
+# Package: argl2
+#
+Filename: argl2.rpm
+Version: 2.0-0
+Label: 
+Size: 0 1586
+Provides: argl2 = 2.0-0 
+Requires: rpmlib(CompressedFileNames) <= 3.0.4-1 
+Obsoletes: (none 
+
+Segakcap:

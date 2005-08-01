@@ -1,0 +1,31 @@
+#
+# YOU patch description
+#
+# Patch created by create_you_patch at Thu Oct 16 09:45:19 CEST 2003
+#
+
+Kind: recommended
+
+Shortdescription.english: Argl
+
+Longdescription.english:
+Dummy Patch
+Hsilgne.noitpircsedgnol:
+
+UpdateOnlyInstalled: false
+
+Packages:
+
+#
+# Package: argl
+#
+Filename: argl.rpm
+Version: 2.0-0
+Series: i586
+Label: 
+Size: 0 1586
+Provides: argl = 2.0-0 
+Requires: rpmlib(CompressedFileNames) <= 3.0.4-1 
+Obsoletes: (none 
+
+Segakcap:
