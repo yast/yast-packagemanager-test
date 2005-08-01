@@ -18,7 +18,7 @@ Release:      0
 License:      YaST License
 Group:        System/YaST
 BuildRoot:    %{_tmppath}/%{name}-%{version}-build
-Source0:      yast2-packagemanager-test-%{version}.tar.bz2
+Source0:      yast2-packagemanager-test-@VERSION@.tar.bz2
 prefix:		/usr
 Summary:      yast2-packagemanager tests
 

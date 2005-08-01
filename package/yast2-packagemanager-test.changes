@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Mon Aug  1 17:24:47 CEST 2005 - mir@suse.de
+
+- 
+- 2.12.3
+
+-------------------------------------------------------------------
 Mon Aug  1 17:14:19 CEST 2005 - mir@suse.de
 
 - fixed all the various paths so that it works with Automake.
