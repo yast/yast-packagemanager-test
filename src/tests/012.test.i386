@@ -8,7 +8,7 @@ echo updateonlyinstalled_force \
 
 #test
 
-online_update -n -u dir:///usr/src/packages/BUILD/yast2-packagemanager-test/test-patches/
+online_update -n -u dir:///usr/src/packages/BUILD/yast2-packagemanager-test/src/test-patches/
 
 [ `rpm -q mytest1` = "mytest1-2.0-0" ]
 ! rpm -q mytest2

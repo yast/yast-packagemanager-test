@@ -12,7 +12,7 @@ pure-ftpd -S 8889 -E &
 #test
 
 online_update -n -u \
-  ftp://youtest:abc123@localhost:8889/%2fusr/src/packages/BUILD/yast2-packagemanager-test/test-patches/
+  ftp://youtest:abc123@localhost:8889/%2fusr/src/packages/BUILD/yast2-packagemanager-test/src/test-patches/
 
 [ `rpm -q argl` = "argl-2.0-0" ]
 

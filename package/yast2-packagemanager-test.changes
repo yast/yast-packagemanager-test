@@ -1,4 +1,16 @@
 -------------------------------------------------------------------
+Mon Aug  1 17:14:19 CEST 2005 - mir@suse.de
+
+- fixed all the various paths so that it works with Automake.
+- 2.12.3 (still)
+
+-------------------------------------------------------------------
+Mon Jul 25 16:41:40 CEST 2005 - mir@suse.de
+
+- added libxml2 to neededforbuild
+- 2.12.3
+
+-------------------------------------------------------------------
 Wed Feb  9 11:33:32 CET 2005 - mir@suse.de
 
 - using the usual YaST Makefile

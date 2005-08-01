@@ -1,4 +1,0 @@
-<Directory "/usr/src/packages/BUILD/yast2-packagemanager-test/test-patches/">
-        Order allow,deny
-        Allow from all
-</Directory>

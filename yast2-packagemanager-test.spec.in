@@ -9,7 +9,7 @@
 
 #
 
-# neededforbuild  acl apache2 apache2-prefork libapr0 attr cron curl expat gpp kerberos-devel-packages libgpp liby2util lukemftp mm mysql-shared openslp openssl popt postgresql-libs pure-ftpd readline rpm yast2-packagemanager gdb w3m
+# neededforbuild  acl apache2 apache2-prefork libapr0 attr cron curl expat gpp kerberos-devel-packages libgpp liby2util lukemftp mm mysql-shared openslp openssl popt postgresql-libs pure-ftpd readline rpm yast2-packagemanager gdb w3m libxml2
 # usedforbuild    aaa_base acl attr bash bind-utils bison bzip2 coreutils cpio cpp cracklib cvs cyrus-sasl db devs diffutils e2fsprogs file filesystem fillup findutils flex gawk gdbm-devel glibc glibc-devel glibc-locale gpm grep groff gzip info insserv kbd less libacl libattr libgcc libstdc++ libxcrypt m4 make man mktemp module-init-tools ncurses ncurses-devel net-tools netcfg openldap2-client openssl pam pam-modules patch permissions popt ps pwdutils rcs readline sed sendmail strace syslogd sysvinit tar texinfo timezone unzip util-linux vim zlib zlib-devel apache autoconf automake binutils cron curl expat gcc gcc-c++ gdbm gettext libstdc++-devel libtool liby2util lukemftp mm perl popt-devel pure-ftpd rpm yast2-packagemanager
 
 Name:         yast2-packagemanager-test
@@ -35,8 +35,10 @@ Authors:
 SuSE series: suse
 
 %prep
-%setup -n %{name}
+%setup
 mkdir -p /var/adm/YaST
+ln -s %{name}-%{version} ../%{name}
+cd src
 cp -r ProdDB /var/adm/YaST
 #mv proc/* /proc
 cp -r test-patches/i386 /srv/ftp
@@ -48,7 +50,7 @@ touch /etc/apache2/sysconfig.d/include.conf
 
 export Y2DEBUG=1
 export Y2SLOG_FILE=/tmp/y2log
-
+cd src
 ./testit --arch=%{_arch} --loglines 500
 
 %install

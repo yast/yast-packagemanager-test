@@ -4,7 +4,16 @@
 
 rpm -i test-patches/i386/update/9.1/rpm/i586/mydummy-1.0-0.i586.rpm
 
-cat apache/http.conf.auth >>/etc/apache2/default-server.conf
+cat <<EOF >>/etc/apache2/default-server.conf
+<Location />
+  AuthType Basic
+  AuthName "Auth required"
+  AuthUserFile `/bin/pwd`/apache/htpasswd
+  Satisfy All
+  Require valid-user
+</Location>
+EOF
+
 
 . tests/setup_apache
 

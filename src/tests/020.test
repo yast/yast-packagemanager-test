@@ -10,7 +10,7 @@ cp test-patches/i386/update/9.1/patches/mediamap.mytest3 \
 
 #test
 
-online_update -n -u dir:///usr/src/packages/BUILD/yast2-packagemanager-test/test-patches/
+online_update -n -u dir:///usr/src/packages/BUILD/yast2-packagemanager-test/src/test-patches/
 
 [ `rpm -q mytest3` = "mytest3-5.0-0" ]
 
