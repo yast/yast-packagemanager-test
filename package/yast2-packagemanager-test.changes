@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Nov 24 09:36:28 CET 2005 - kkaempf@suse.de
+
+- clean up to follow normal YaST/automake/autoconf practices.
+- 2.12.4
+
+-------------------------------------------------------------------
 Mon Aug  1 17:24:47 CEST 2005 - mir@suse.de
 
 - 
