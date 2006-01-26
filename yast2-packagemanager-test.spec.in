@@ -7,17 +7,13 @@
 #
 # Please submit bugfixes or comments via http://www.suse.de/feedback/which 
 
-#
-
-# neededforbuild  acl apache2 apache2-prefork libapr0 attr cron curl expat gpp kerberos-devel-packages libgpp liby2util lukemftp mm mysql-shared openslp openssl popt postgresql-libs pure-ftpd readline rpm yast2-packagemanager gdb w3m libxml2
-# usedforbuild    aaa_base acl attr bash bind-utils bison bzip2 coreutils cpio cpp cracklib cvs cyrus-sasl db devs diffutils e2fsprogs file filesystem fillup findutils flex gawk gdbm-devel glibc glibc-devel glibc-locale gpm grep groff gzip info insserv kbd less libacl libattr libgcc libstdc++ libxcrypt m4 make man mktemp module-init-tools ncurses ncurses-devel net-tools netcfg openldap2-client openssl pam pam-modules patch permissions popt ps pwdutils rcs readline sed sendmail strace syslogd sysvinit tar texinfo timezone unzip util-linux vim zlib zlib-devel apache autoconf automake binutils cron curl expat gcc gcc-c++ gdbm gettext libstdc++-devel libtool liby2util lukemftp mm perl popt-devel pure-ftpd rpm yast2-packagemanager
-
 Name:         yast2-packagemanager-test
 Version:      @VERSION@
 Release:      0
 License:      YaST License
 Group:        System/YaST
 BuildRoot:    %{_tmppath}/%{name}-%{version}-build
+BuildRequires: apache2 cron gcc-c++ gdb krb5-devel libapr-util1-devel libapr1-devel lukemftp mm pcre-devel popt-devel pure-ftpd w3m yast2-packagemanager
 Source0:      yast2-packagemanager-test-@VERSION@.tar.bz2
 prefix:		/usr
 Summary:      yast2-packagemanager tests
