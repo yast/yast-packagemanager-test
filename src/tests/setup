@@ -1,6 +1,0 @@
-if [ -e /var/log/YaST2 ]; then rm -r /var/log/YaST2; fi
-mkdir -p /var/log/YaST2
-rm -f $Y2SLOG_FILE
-cp /etc/apache2/httpd.conf /etc/apache2/httpd.conf.orig
-cp test-patches/i386/update/9.1/patches/directory.3 \
-   test-patches/i386/update/9.1/patches/directory.3.save
